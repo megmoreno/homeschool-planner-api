@@ -11,5 +11,5 @@ const yoga = createYoga({
 const server = createServer(yoga)
 
 server.listen(port, () => {
-  console.log('GraphQL Server ready at http://localhost:${port}/graphql')
+  console.log(`GraphQL Server ready at http://localhost:${port}/graphql`)
 })
