@@ -4,6 +4,10 @@ const prisma = new PrismaClient()
 async function main() {
   await prisma.learningFocus.deleteMany({})
   await prisma.student.deleteMany({})
+  await prisma.dailyScheduleItem.deleteMany({})
+  await prisma.dailySchedule.deleteMany({})
+  await prisma.book.deleteMany({})
+  await prisma.weeklyPlan.deleteMany({})
 
   await prisma.student.create({
     data: {
@@ -53,6 +57,55 @@ async function main() {
           {
             name: 'Basic commands',
             description: 'Sit, Come, Stay',
+          },
+        ],
+      },
+    },
+  })
+
+  await prisma.weeklyPlan.create({
+    data: {
+      startDate: new Date(),
+      endDate: new Date(),
+      resourcesNeeded: ['sunscreen', 'snorkel mask', 'water shoes for Jonah'],
+      activities: [
+        'swimming with dolphins, Atlantis submarine, playing with cousins',
+      ],
+      books: {
+        create: [
+          {
+            title: "Children's Atlas",
+            author: 'Usborne',
+          },
+          {
+            title: 'Animal Smackdown',
+            author: 'Unknown',
+          },
+        ],
+      },
+      dailySchedules: {
+        create: [
+          {
+            date: new Date(),
+            dailyScheduleItems: {
+              create: [
+                {
+                  time: new Date(),
+                  planDescription: 'swimming with dolphins',
+                },
+              ],
+            },
+          },
+          {
+            date: new Date(),
+            dailyScheduleItems: {
+              create: [
+                {
+                  time: new Date(),
+                  planDescription: 'stargaze on the ship',
+                },
+              ],
+            },
           },
         ],
       },

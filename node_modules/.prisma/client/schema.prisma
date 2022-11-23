@@ -29,3 +29,37 @@ model LearningFocus {
   studentId Int
   student Student @relation(fields: [studentId], references: [id])
 }
+
+model WeeklyPlan {
+  id Int @id @default(autoincrement())
+  startDate DateTime
+  endDate DateTime
+  books Book[]
+  resourcesNeeded String[]
+  activities String[]
+  dailySchedules DailySchedule[]
+}
+
+model Book {
+  id Int @id @default(autoincrement())
+  title String
+  author String
+  weeklyPlanId Int
+  weeklyPlan WeeklyPlan @relation(fields: [weeklyPlanId], references: [id])
+}
+
+model DailySchedule {
+  id Int @id @default(autoincrement())
+  date DateTime
+  dailyScheduleItems DailyScheduleItem[]
+  weeklyPlanId Int
+  weeklyPlan WeeklyPlan @relation(fields: [weeklyPlanId], references: [id])
+}
+
+model DailyScheduleItem {
+  id Int @id @default(autoincrement())
+  time DateTime
+  planDescription String
+  dailyScheduleId Int
+  dailySchedule DailySchedule @relation(fields: [dailyScheduleId], references: [id])
+}
